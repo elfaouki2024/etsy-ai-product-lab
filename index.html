@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#111827">
+
+  <title>Etsy AI Product Lab</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #f5f7fb;
+      color: #111827;
+      min-height: 100vh;
+    }
+
+    header {
+      background: #111827;
+      color: white;
+      padding: 24px 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 25px;
+      margin-bottom: 8px;
+    }
+
+    header p {
+      color: #cbd5e1;
+      font-size: 14px;
+    }
+
+    .container {
+      width: 92%;
+      max-width: 650px;
+      margin: 25px auto;
+    }
+
+    .hero {
+      background: white;
+      border-radius: 18px;
+      padding: 25px;
+      text-align: center;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.06);
+      margin-bottom: 20px;
+    }
+
+    .hero h2 {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+
+    .hero p {
+      color: #64748b;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .main-button {
+      width: 100%;
+      border: none;
+      padding: 16px;
+      border-radius: 12px;
+      background: #111827;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .main-button:active {
+      transform: scale(0.98);
+    }
+
+    .menu {
+      display: grid;
+      gap: 12px;
+    }
+
+    .menu button {
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 14px;
+      padding: 18px;
+      text-align: left;
+      font-size: 15px;
+      cursor: pointer;
+    }
+
+    .menu button span {
+      font-size: 21px;
+      margin-right: 8px;
+    }
+
+    .research {
+      display: none;
+      background: white;
+      border-radius: 18px;
+      padding: 22px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.06);
+    }
+
+    .research h2 {
+      margin-bottom: 18px;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      margin-bottom: 7px;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 13px;
+      border: 1px solid #d1d5db;
+      border-radius: 10px;
+      font-size: 15px;
+      background: white;
+    }
+
+    .result {
+      display: none;
+      margin-top: 20px;
+      background: white;
+      border-radius: 18px;
+      padding: 22px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.06);
+    }
+
+    .score {
+      font-size: 30px;
+      font-weight: bold;
+      margin: 12px 0;
+    }
+
+    .status {
+      display: inline-block;
+      padding: 6px 10px;
+      border-radius: 20px;
+      background: #fef3c7;
+      color: #92400e;
+      font-size: 13px;
+      margin-bottom: 15px;
+    }
+
+    .result ul {
+      padding-left: 20px;
+      line-height: 1.9;
+      color: #475569;
+    }
+
+    .actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .actions button {
+      border: none;
+      padding: 13px;
+      border-radius: 10px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .test {
+      background: #e5e7eb;
+    }
+
+    .build {
+      background: #111827;
+      color: white;
+    }
+
+    .back {
+      margin-top: 15px;
+      border: none;
+      background: transparent;
+      color: #475569;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>✦ Etsy AI Product Lab</h1>
+  <p>Find opportunities. Create products. Build smarter.</p>
+</header>
+
+<div class="container">
+
+  <section class="hero" id="home">
+    <h2>Find Your Next Product</h2>
+
+    <p>
+      Discover micro-niches and turn promising ideas
+      into digital products for Etsy.
+    </p>
+
+    <button class="main-button" onclick="showResearch()">
+      🔥 FIND & CREATE
+    </button>
+  </section>
+
+  <section class="menu" id="menu">
+
+    <button onclick="showResearch()">
+      <span>🔎</span>
+      Research Opportunity
+    </button>
+
+    <button onclick="showResearch()">
+      <span>🏭</span>
+      Product Factory
+    </button>
+
+    <button onclick="showResearch()">
+      <span>📝</span>
+      Listing Factory
+    </button>
+
+    <button onclick="alert('Projects will be available in the next version.')">
+      <span>💾</span>
+      My Projects
+    </button>
+
+  </section>
+
+  <section class="research" id="research">
+
+    <h2>🔎 New Research</h2>
+
+    <label>What are you interested in?</label>
+    <input id="niche" value="Travel" placeholder="Example: Travel">
+
+    <label>Market</label>
+    <select id="market">
+      <option>Etsy</option>
+    </select>
+
+    <label>Product Type</label>
+    <select id="product">
+      <option>Digital Products</option>
+      <option>Printable</option>
+      <option>Templates</option>
+      <option>Journal</option>
+    </select>
+
+    <label>Target Market</label>
+    <select id="country">
+      <option>USA</option>
+      <option>Worldwide</option>
+    </select>
+
+    <label>Budget</label>
+    <select id="budget">
+      <option>$0–20</option>
+      <option>$20–50</option>
+    </select>
+
+    <br><br>
+
+    <button class="main-button" onclick="analyze()">
+      🔥 ANALYZE OPPORTUNITY
+    </button>
+
+    <button class="back" onclick="goHome()">
+      ← Back
+    </button>
+
+  </section>
+
+  <section class="result" id="result">
+
+    <h2>🏆 Opportunity Found</h2>
+
+    <h3>First International Trip Journal</h3>
+
+    <div class="score">87/100</div>
+
+    <div class="status">
+      🟡 Test Recommended
+    </div>
+
+    <ul>
+      <li>Target: First-time international travelers</li>
+      <li>Format: Printable Journal</li>
+      <li>Potential: Journal + Planner + Bundle</li>
+      <li>Strategy: Start with an MVP</li>
+    </ul>
+
+    <div class="actions">
+      <button class="test" onclick="alert('Test Product coming next.')">
+        🧪 TEST
+      </button>
+
+      <button class="build" onclick="alert('Product Factory coming next.')">
+        🏭 BUILD
+      </button>
+    </div>
+
+  </section>
+
+</div>
+
+<script>
+
+function showResearch() {
+  document.getElementById("home").style.display = "none";
+  document.getElementById("menu").style.display = "none";
+  document.getElementById("research").style.display = "block";
+  document.getElementById("result").style.display = "none";
+}
+
+function goHome() {
+  document.getElementById("home").style.display = "block";
+  document.getElementById("menu").style.display = "grid";
+  document.getElementById("research").style.display = "none";
+  document.getElementById("result").style.display = "none";
+}
+
+function analyze() {
+  document.getElementById("research").style.display = "none";
+  document.getElementById("result").style.display = "block";
+}
+
+</script>
+
+</body>
+    </html>
