@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Etsy AI Product Lab</title>
-    <style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<style>
         :root {
             --bg-color: #0f172a;
             --card-bg: #1e293b;
@@ -209,6 +210,36 @@
         navigator.clipboard.writeText(text);
         alert('تم نسخ هيكل المنتج بنجاح! يمكنك لصقه الآن في ملاحظاتك أو Canva.');
     }
+</script>
+<button onclick="exportToPDF()" class="btn-download">
+    Download PDF
+</button>
+
+<script>
+function exportToPDF() {
+    const element = document.getElementById('product-structure');
+    const options = {
+        margin:       10,
+        filename:     'Product_Structure.pdf',
+        image:        { type: 'jpeg', quality: 0.98 },
+        html2canvas:  { scale: 2, useCORS: true },
+        jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    };
+
+    html2pdf().set(options).from(element).save();
+}
+</script>
+
+
+    const options = {
+        margin:       10,
+        filename:     'Product_Structure.pdf',
+        image:        { type: 'jpeg', quality: 0.98 },
+        html2canvas:  { scale: 2, useCORS: true },
+        jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    };
+    html2pdf().set(options).from(element).save();
+}
 </script>
 
 </body>
