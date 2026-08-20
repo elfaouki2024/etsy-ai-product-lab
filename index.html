@@ -1,344 +1,215 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#111827">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Etsy AI Product Lab</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-color: #f8fafc;
+            --text-muted: #94a3b8;
+            --primary-color: #6366f1;
+            --primary-hover: #4f46e5;
+            --accent-color: #f97316;
+            --border-color: #334155;
+        }
 
-  <title>Etsy AI Product Lab</title>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+        }
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-    }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
 
-    body {
-      background: #f5f7fb;
-      color: #111827;
-      min-height: 100vh;
-    }
+        header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
 
-    header {
-      background: #111827;
-      color: white;
-      padding: 24px 20px;
-      text-align: center;
-    }
+        header h1 {
+            margin: 0;
+            font-size: 1.8rem;
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
 
-    header h1 {
-      font-size: 25px;
-      margin-bottom: 8px;
-    }
+        header p {
+            color: var(--text-muted);
+            margin-top: 5px;
+            font-size: 0.95rem;
+        }
 
-    header p {
-      color: #cbd5e1;
-      font-size: 14px;
-    }
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+        }
 
-    .container {
-      width: 92%;
-      max-width: 650px;
-      margin: 25px auto;
-    }
+        .btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: 600;
+            transition: background-color 0.2s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
 
-    .hero {
-      background: white;
-      border-radius: 18px;
-      padding: 25px;
-      text-align: center;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.06);
-      margin-bottom: 20px;
-    }
+        .btn:hover {
+            background-color: var(--primary-hover);
+        }
 
-    .hero h2 {
-      font-size: 24px;
-      margin-bottom: 10px;
-    }
+        .btn-secondary {
+            background-color: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+        }
 
-    .hero p {
-      color: #64748b;
-      line-height: 1.6;
-      margin-bottom: 20px;
-    }
+        .btn-secondary:hover {
+            background-color: #334155;
+        }
 
-    .main-button {
-      width: 100%;
-      border: none;
-      padding: 16px;
-      border-radius: 12px;
-      background: #111827;
-      color: white;
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
-    }
+        .btn-accent {
+            background-color: var(--accent-color);
+        }
 
-    .main-button:active {
-      transform: scale(0.98);
-    }
+        .btn-accent:hover {
+            background-color: #ea580c;
+        }
 
-    .menu {
-      display: grid;
-      gap: 12px;
-    }
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
 
-    .menu button {
-      background: white;
-      border: 1px solid #e5e7eb;
-      border-radius: 14px;
-      padding: 18px;
-      text-align: left;
-      font-size: 15px;
-      cursor: pointer;
-    }
+        .badge {
+            background: #f59e0b;
+            color: #78350f;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
 
-    .menu button span {
-      font-size: 21px;
-      margin-right: 8px;
-    }
+        .section-title {
+            font-size: 1.2rem;
+            margin-top: 0;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 10px;
+            color: var(--accent-color);
+        }
 
-    .research {
-      display: none;
-      background: white;
-      border-radius: 18px;
-      padding: 22px;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.06);
-    }
+        ul.page-list {
+            padding-left: 20px;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
 
-    .research h2 {
-      margin-bottom: 18px;
-    }
+        ul.page-list li strong {
+            color: var(--text-color);
+        }
 
-    label {
-      display: block;
-      margin-top: 15px;
-      margin-bottom: 7px;
-      font-weight: bold;
-      font-size: 14px;
-    }
-
-    input, select {
-      width: 100%;
-      padding: 13px;
-      border: 1px solid #d1d5db;
-      border-radius: 10px;
-      font-size: 15px;
-      background: white;
-    }
-
-    .result {
-      display: none;
-      margin-top: 20px;
-      background: white;
-      border-radius: 18px;
-      padding: 22px;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.06);
-    }
-
-    .score {
-      font-size: 30px;
-      font-weight: bold;
-      margin: 12px 0;
-    }
-
-    .status {
-      display: inline-block;
-      padding: 6px 10px;
-      border-radius: 20px;
-      background: #fef3c7;
-      color: #92400e;
-      font-size: 13px;
-      margin-bottom: 15px;
-    }
-
-    .result ul {
-      padding-left: 20px;
-      line-height: 1.9;
-      color: #475569;
-    }
-
-    .actions {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      margin-top: 20px;
-    }
-
-    .actions button {
-      border: none;
-      padding: 13px;
-      border-radius: 10px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    .test {
-      background: #e5e7eb;
-    }
-
-    .build {
-      background: #111827;
-      color: white;
-    }
-
-    .back {
-      margin-top: 15px;
-      border: none;
-      background: transparent;
-      color: #475569;
-      cursor: pointer;
-    }
-  </style>
+        .hidden {
+            display: none;
+        }
+    </style>
 </head>
-
 <body>
 
-<header>
-  <h1>✦ Etsy AI Product Lab</h1>
-  <p>Find opportunities. Create products. Build smarter.</p>
-</header>
-
 <div class="container">
+    <header>
+        <h1>✨ Etsy AI Product Lab</h1>
+        <p>Find opportunities. Create products. Build smarter.</p>
+    </header>
 
-  <section class="hero" id="home">
-    <h2>Find Your Next Product</h2>
+    <!-- Opportunity Card -->
+    <div id="opportunity-card" class="card">
+        <span class="badge">🏆 Opportunity Found</span>
+        <h2 style="margin: 5px 0 15px 0;">First International Trip Journal</h2>
+        <div style="font-size: 2.5rem; font-weight: bold; color: #10b981; margin-bottom: 15px;">87/100</div>
+        
+        <ul style="list-style: none; padding: 0; color: var(--text-muted); line-height: 1.8;">
+            <li>• <strong>Target:</strong> First-time international travelers</li>
+            <li>• <strong>Format:</strong> Printable Journal / Digital PDF</li>
+            <li>• <strong>Potential:</strong> Journal + Planner + Packing Checklist Bundle</li>
+            <li>• <strong>Strategy:</strong> Start with an MVP printable template</li>
+        </ul>
 
-    <p>
-      Discover micro-niches and turn promising ideas
-      into digital products for Etsy.
-    </p>
-
-    <button class="main-button" onclick="showResearch()">
-      🔥 FIND & CREATE
-    </button>
-  </section>
-
-  <section class="menu" id="menu">
-
-    <button onclick="showResearch()">
-      <span>🔎</span>
-      Research Opportunity
-    </button>
-
-    <button onclick="showResearch()">
-      <span>🏭</span>
-      Product Factory
-    </button>
-
-    <button onclick="showResearch()">
-      <span>📝</span>
-      Listing Factory
-    </button>
-
-    <button onclick="alert('Projects will be available in the next version.')">
-      <span>💾</span>
-      My Projects
-    </button>
-
-  </section>
-
-  <section class="research" id="research">
-
-    <h2>🔎 New Research</h2>
-
-    <label>What are you interested in?</label>
-    <input id="niche" value="Travel" placeholder="Example: Travel">
-
-    <label>Market</label>
-    <select id="market">
-      <option>Etsy</option>
-    </select>
-
-    <label>Product Type</label>
-    <select id="product">
-      <option>Digital Products</option>
-      <option>Printable</option>
-      <option>Templates</option>
-      <option>Journal</option>
-    </select>
-
-    <label>Target Market</label>
-    <select id="country">
-      <option>USA</option>
-      <option>Worldwide</option>
-    </select>
-
-    <label>Budget</label>
-    <select id="budget">
-      <option>$0–20</option>
-      <option>$20–50</option>
-    </select>
-
-    <br><br>
-
-    <button class="main-button" onclick="analyze()">
-      🔥 ANALYZE OPPORTUNITY
-    </button>
-
-    <button class="back" onclick="goHome()">
-      ← Back
-    </button>
-
-  </section>
-
-  <section class="result" id="result">
-
-    <h2>🏆 Opportunity Found</h2>
-
-    <h3>First International Trip Journal</h3>
-
-    <div class="score">87/100</div>
-
-    <div class="status">
-      🟡 Test Recommended
+        <div class="btn-group">
+            <button class="btn btn-secondary" onclick="alert('Testing keyword potential...')">🧪 TEST</button>
+            <button class="btn btn-accent" onclick="openProductFactory()">🏭 BUILD</button>
+        </div>
     </div>
 
-    <ul>
-      <li>Target: First-time international travelers</li>
-      <li>Format: Printable Journal</li>
-      <li>Potential: Journal + Planner + Bundle</li>
-      <li>Strategy: Start with an MVP</li>
-    </ul>
+    <!-- Product Factory Card (Dynamic) -->
+    <div id="product-factory-card" class="card hidden">
+        <h3 class="section-title">🏭 Product Factory: Structure Breakdown</h3>
+        <p style="color: var(--text-muted);">هيكل ومحتويات الدفتر جاهزة للتصميم على Canva:</p>
 
-    <div class="actions">
-      <button class="test" onclick="alert('Test Product coming next.')">
-        🧪 TEST
-      </button>
+        <ul class="page-list">
+            <li><strong>Page 1: Cover Page</strong> - Minimalist Travel Aesthetic Title</li>
+            <li><strong>Page 2: Pre-Trip Planning Checklist</strong> - Passport, Visa, Travel Insurance, Vaccinations</li>
+            <li><strong>Page 3: Flight & Accommodation Details</strong> - Confirmation numbers, Addresses, Contact numbers</li>
+            <li><strong>Page 4: Budget & Expense Tracker</strong> - Currency exchange rates, Daily budget limits</li>
+            <li><strong>Page 5: Packing List by Category</strong> - Clothes, Electronics, Toiletries, Documents</li>
+            <li><strong>Page 6-10: Daily Travel Journal Log</strong> - Itinerary, Highlights, Daily Expenses, Favorite Memories</li>
+        </ul>
 
-      <button class="build" onclick="alert('Product Factory coming next.')">
-        🏭 BUILD
-      </button>
+        <div class="btn-group">
+            <button class="btn" onclick="copyStructure()">📋 Copy Structure</button>
+            <button class="btn btn-secondary" onclick="backToOpportunity()">⬅ Back</button>
+        </div>
     </div>
-
-  </section>
-
 </div>
 
 <script>
+    function openProductFactory() {
+        document.getElementById('opportunity-card').classList.add('hidden');
+        document.getElementById('product-factory-card').classList.remove('hidden');
+    }
 
-function showResearch() {
-  document.getElementById("home").style.display = "none";
-  document.getElementById("menu").style.display = "none";
-  document.getElementById("research").style.display = "block";
-  document.getElementById("result").style.display = "none";
-}
+    function backToOpportunity() {
+        document.getElementById('product-factory-card').classList.add('hidden');
+        document.getElementById('opportunity-card').classList.remove('hidden');
+    }
 
-function goHome() {
-  document.getElementById("home").style.display = "block";
-  document.getElementById("menu").style.display = "grid";
-  document.getElementById("research").style.display = "none";
-  document.getElementById("result").style.display = "none";
-}
-
-function analyze() {
-  document.getElementById("research").style.display = "none";
-  document.getElementById("result").style.display = "block";
-}
-
+    function copyStructure() {
+        const text = `First International Trip Journal Structure:
+1. Cover Page
+2. Pre-Trip Checklist (Passport, Visa, Insurance)
+3. Flight & Accommodation Details
+4. Budget & Expense Tracker
+5. Packing List (Clothes, Electronics, Documents)
+6. Daily Travel Log & Highlights`;
+        
+        navigator.clipboard.writeText(text);
+        alert('تم نسخ هيكل المنتج بنجاح! يمكنك لصقه الآن في ملاحظاتك أو Canva.');
+    }
 </script>
 
 </body>
-    </html>
+</html>
